@@ -22,7 +22,7 @@ if [[ ! -e $DIR ]]; then
 fi
 
 download "$DIR/taxi_zones.zip" https://s3.amazonaws.com/nyc-tlc/misc/taxi_zones.zip
-unzip $DIR/taxi_zones.zip
+unzip $DIR/taxi_zones.zip -d $DIR
 download "$DIR/taxi_zone_lookup.csv" https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 
 for (( i=$STARTYEAR; i<=$ENDYEAR; ++i )); do

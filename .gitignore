@@ -5,3 +5,4 @@
 *.swo
 *.py[cod]
 __pycache__/
+data/
