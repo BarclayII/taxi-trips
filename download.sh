@@ -28,12 +28,13 @@ download "$DIR/taxi_zone_lookup.csv" https://s3.amazonaws.com/nyc-tlc/misc/taxi+
 for (( i=$STARTYEAR; i<=$ENDYEAR; ++i )); do
 	if [ $i -eq $STARTYEAR ]; then
 		jstart=$STARTMONTH
-		jend=12
-	elif [ $i -eq $ENDYEAR ]; then
-		jstart=01
-		jend=$ENDMONTH
 	else
 		jstart=1
+	fi
+
+	if [ $i -eq $ENDYEAR ]; then
+		jend=$ENDMONTH
+	else
 		jend=12
 	fi
 
