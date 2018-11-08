@@ -17,12 +17,24 @@ download () {
 	fi
 }
 
+download_and_unzip () {
+	DEST=$1
+	URL=$2
+	if [[ ! -e $DEST ]]; then
+		wget -O $DEST $URL
+		unzip $DEST -d $DIR
+	else
+		echo Found $DEST
+	fi
+}
+
 if [[ ! -e $DIR ]]; then
 	mkdir -p $DIR
 fi
 
-download "$DIR/taxi_zones.zip" https://s3.amazonaws.com/nyc-tlc/misc/taxi_zones.zip
-unzip $DIR/taxi_zones.zip -d $DIR
+download_and_unzip "$DIR/taxi_zones.zip" https://s3.amazonaws.com/nyc-tlc/misc/taxi_zones.zip
+download_and_unzip "$DIR/nyc_street_maps.zip" "https://data.cityofnewyork.us/api/geospatial/exjm-f27b?method=export&format=Shapefile"
+download "$DIR/Centerline.pdf" "https://data.cityofnewyork.us/api/views/exjm-f27b/files/cba8af99-6cd5-49fd-9019-b4a6c2d9dff7?download=true&filename=Centerline.pdf"
 download "$DIR/taxi_zone_lookup.csv" https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 
 for (( i=$STARTYEAR; i<=$ENDYEAR; ++i )); do
